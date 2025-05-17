@@ -5,7 +5,7 @@ const getImageBtn = document.getElementById("get-image-btn");
 const gifOnlyOption = document.getElementById("gifs-only-option");
 
 emotionRadios.addEventListener("change", highlightCheckedOption);
-getImageBtn.addEventListener("click", getMatchingCatsArray);
+// getImageBtn.addEventListener("click", );
 
 function highlightCheckedOption(e) {
   const radios = document.getElementsByClassName("radio");
@@ -32,6 +32,17 @@ function getMatchingCatsArray() {
     });
 
     return matchingCatsArray;
+  }
+}
+
+function getSingleCatObj() {
+  const catsArray = getMatchingCatsArray();
+
+  if (catsArray.length === 1) {
+    return catsArray[0];
+  } else {
+    const randomIndex = Math.floor(Math.random() * catsArray.length);
+    return catsArray[randomIndex];
   }
 }
 
