@@ -8,12 +8,8 @@ const memeModal = document.getElementById("meme-modal");
 const closeModalBtn = document.getElementById("meme-modal-close-btn");
 
 emotionRadios.addEventListener("change", highlightCheckedOption);
-getImageBtn.addEventListener("click", renderCat);
 closeModalBtn.addEventListener("click", closeModal);
-
-function closeModal() {
-  memeModal.style.display = "none";
-}
+getImageBtn.addEventListener("click", renderCat);
 
 function highlightCheckedOption(e) {
   const radios = document.getElementsByClassName("radio");
@@ -22,6 +18,31 @@ function highlightCheckedOption(e) {
   }
 
   document.getElementById(e.target.id).parentElement.classList.add("highlight");
+}
+
+function closeModal() {
+  memeModal.style.display = "none";
+}
+
+function renderCat() {
+  const catObject = getSingleCatObj();
+
+  memeModalInner.innerHTML = `
+    <img class="cat-img" src="./images/${catObject.image}" alt="${catObject.alt}" />
+    `;
+
+  memeModal.style.display = "flex";
+}
+
+function getSingleCatObj() {
+  const catsArray = getMatchingCatsArray();
+
+  if (catsArray.length === 1) {
+    return catsArray[0];
+  } else {
+    const randomIndex = Math.floor(Math.random() * catsArray.length);
+    return catsArray[randomIndex];
+  }
 }
 
 function getMatchingCatsArray() {
@@ -41,27 +62,6 @@ function getMatchingCatsArray() {
 
     return matchingCatsArray;
   }
-}
-
-function getSingleCatObj() {
-  const catsArray = getMatchingCatsArray();
-
-  if (catsArray.length === 1) {
-    return catsArray[0];
-  } else {
-    const randomIndex = Math.floor(Math.random() * catsArray.length);
-    return catsArray[randomIndex];
-  }
-}
-
-function renderCat() {
-  const catObject = getSingleCatObj();
-
-  memeModalInner.innerHTML = `
-    <img class="cat-img" src="./images/${catObject.image}" alt="${catObject.alt}" />
-    `;
-
-  memeModal.style.display = "flex";
 }
 
 function getEmotionsArray(cats) {
